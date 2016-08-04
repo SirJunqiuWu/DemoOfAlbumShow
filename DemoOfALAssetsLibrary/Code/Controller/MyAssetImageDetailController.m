@@ -43,7 +43,7 @@
 @end
 
 @implementation MyAssetImageDetailController
-@synthesize allPhotoArray,haveSelectPhotoArray,currentPhotoIndex;
+@synthesize allPhotoArray,haveSelectPhotoArray,currentPhotoIndex,SelectedPhotoBlock,OKBlock;
 
 - (id)init {
     self = [super init];
@@ -169,6 +169,14 @@
     if (needReload)
     {
         [self reloadUI];
+        
+        /**
+         *  告知上一届面刷新图片选择显示
+         */
+        if (SelectedPhotoBlock)
+        {
+            SelectedPhotoBlock(currentPhotoIndex,tempModel);
+        }
     }
 }
 
@@ -232,6 +240,10 @@
 
 - (void)okBtnPressed {
     NSLog(@"确定");
+    if (OKBlock)
+    {
+        OKBlock(haveSelectPhotoArray);
+    }
 }
 
 #pragma mark - UIScrollViewDelegate

@@ -26,4 +26,15 @@
  */
 @property(nonatomic,assign)NSInteger currentPhotoIndex;
 
+/**
+ *  选择图片回调 参数为操作的图片索引 以及图片对象
+ */
+@property(nonatomic,copy)void(^SelectedPhotoBlock)(NSInteger idx,WJQAssetModel *model);
+
+
+/**
+ *  确定按钮点击回调
+ */
+@property(nonatomic,copy)void(^OKBlock)(NSArray *selectedPhotosArray);
+
 @end

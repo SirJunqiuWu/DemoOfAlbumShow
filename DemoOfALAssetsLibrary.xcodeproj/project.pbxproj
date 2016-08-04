@@ -13,7 +13,6 @@
 		0438C33D1D5192BC00669F9B /* MyAssetImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0438C3331D5192BC00669F9B /* MyAssetImageController.m */; };
 		0438C33E1D5192BC00669F9B /* MyAssetImageDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0438C3351D5192BC00669F9B /* MyAssetImageDetailController.m */; };
 		0438C33F1D5192BC00669F9B /* MyAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0438C3371D5192BC00669F9B /* MyAssetPickerController.m */; };
-		0438C3401D5192BC00669F9B /* MyAssetPickerToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0438C3391D5192BC00669F9B /* MyAssetPickerToolbar.m */; };
 		0438C3451D5192FB00669F9B /* MyAssetGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0438C3421D5192FB00669F9B /* MyAssetGroupTableViewCell.m */; };
 		0438C3461D5192FB00669F9B /* MyAssetImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0438C3441D5192FB00669F9B /* MyAssetImageCollectionViewCell.m */; };
 		0438C3491D5196F900669F9B /* MyAssetImageDetailCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0438C3481D5196F900669F9B /* MyAssetImageDetailCollectionCell.m */; };
@@ -26,6 +25,9 @@
 		0438C35C1D51D20000669F9B /* original_N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0438C35A1D51D20000669F9B /* original_N@2x.png */; };
 		0438C35D1D51D20000669F9B /* original_S@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0438C35B1D51D20000669F9B /* original_S@2x.png */; };
 		0438C35F1D51D8E300669F9B /* photo_number_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0438C35E1D51D8E300669F9B /* photo_number_icon@2x.png */; };
+		0438C3621D51F69B00669F9B /* MyAssetImageToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0438C3611D51F69B00669F9B /* MyAssetImageToolBar.m */; };
+		0438C3661D53180A00669F9B /* WJQUploadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0438C3651D53180A00669F9B /* WJQUploadImageView.m */; };
+		0438C36A1D531ACB00669F9B /* photoDeleteIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0438C3691D531ACB00669F9B /* photoDeleteIcon@2x.png */; };
 		04C421F01D4F4BBE008AD492 /* WJQAlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C421EF1D4F4BBE008AD492 /* WJQAlbumManager.m */; };
 		1B7B76F81A9EEB44003874E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7B76F71A9EEB44003874E4 /* main.m */; };
 		1B7B76FB1A9EEB44003874E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7B76FA1A9EEB44003874E4 /* AppDelegate.m */; };
@@ -59,8 +61,6 @@
 		0438C3351D5192BC00669F9B /* MyAssetImageDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAssetImageDetailController.m; sourceTree = "<group>"; };
 		0438C3361D5192BC00669F9B /* MyAssetPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAssetPickerController.h; sourceTree = "<group>"; };
 		0438C3371D5192BC00669F9B /* MyAssetPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAssetPickerController.m; sourceTree = "<group>"; };
-		0438C3381D5192BC00669F9B /* MyAssetPickerToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAssetPickerToolbar.h; sourceTree = "<group>"; };
-		0438C3391D5192BC00669F9B /* MyAssetPickerToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAssetPickerToolbar.m; sourceTree = "<group>"; };
 		0438C3411D5192FB00669F9B /* MyAssetGroupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAssetGroupTableViewCell.h; sourceTree = "<group>"; };
 		0438C3421D5192FB00669F9B /* MyAssetGroupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAssetGroupTableViewCell.m; sourceTree = "<group>"; };
 		0438C3431D5192FB00669F9B /* MyAssetImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAssetImageCollectionViewCell.h; sourceTree = "<group>"; };
@@ -79,6 +79,12 @@
 		0438C35A1D51D20000669F9B /* original_N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "original_N@2x.png"; sourceTree = "<group>"; };
 		0438C35B1D51D20000669F9B /* original_S@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "original_S@2x.png"; sourceTree = "<group>"; };
 		0438C35E1D51D8E300669F9B /* photo_number_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_number_icon@2x.png"; sourceTree = "<group>"; };
+		0438C3601D51F69B00669F9B /* MyAssetImageToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAssetImageToolBar.h; sourceTree = "<group>"; };
+		0438C3611D51F69B00669F9B /* MyAssetImageToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAssetImageToolBar.m; sourceTree = "<group>"; };
+		0438C3631D5314A700669F9B /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		0438C3641D53180A00669F9B /* WJQUploadImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJQUploadImageView.h; sourceTree = "<group>"; };
+		0438C3651D53180A00669F9B /* WJQUploadImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJQUploadImageView.m; sourceTree = "<group>"; };
+		0438C3691D531ACB00669F9B /* photoDeleteIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoDeleteIcon@2x.png"; sourceTree = "<group>"; };
 		04C421EE1D4F4BBE008AD492 /* WJQAlbumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJQAlbumManager.h; sourceTree = "<group>"; };
 		04C421EF1D4F4BBE008AD492 /* WJQAlbumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJQAlbumManager.m; sourceTree = "<group>"; };
 		04C421F11D4F4F1F008AD492 /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
@@ -124,8 +130,12 @@
 				0438C3441D5192FB00669F9B /* MyAssetImageCollectionViewCell.m */,
 				0438C3471D5196F900669F9B /* MyAssetImageDetailCollectionCell.h */,
 				0438C3481D5196F900669F9B /* MyAssetImageDetailCollectionCell.m */,
+				0438C3601D51F69B00669F9B /* MyAssetImageToolBar.h */,
+				0438C3611D51F69B00669F9B /* MyAssetImageToolBar.m */,
 				0438C3571D51CE4200669F9B /* MyAssetImageDetailToolBar.h */,
 				0438C3581D51CE4200669F9B /* MyAssetImageDetailToolBar.m */,
+				0438C3641D53180A00669F9B /* WJQUploadImageView.h */,
+				0438C3651D53180A00669F9B /* WJQUploadImageView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -133,16 +143,14 @@
 		0438C32B1D5192BC00669F9B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0438C3361D5192BC00669F9B /* MyAssetPickerController.h */,
+				0438C3371D5192BC00669F9B /* MyAssetPickerController.m */,
 				0438C32C1D5192BC00669F9B /* MyAssetGroupController.h */,
 				0438C32D1D5192BC00669F9B /* MyAssetGroupController.m */,
 				0438C3321D5192BC00669F9B /* MyAssetImageController.h */,
 				0438C3331D5192BC00669F9B /* MyAssetImageController.m */,
 				0438C3341D5192BC00669F9B /* MyAssetImageDetailController.h */,
 				0438C3351D5192BC00669F9B /* MyAssetImageDetailController.m */,
-				0438C3361D5192BC00669F9B /* MyAssetPickerController.h */,
-				0438C3371D5192BC00669F9B /* MyAssetPickerController.m */,
-				0438C3381D5192BC00669F9B /* MyAssetPickerToolbar.h */,
-				0438C3391D5192BC00669F9B /* MyAssetPickerToolbar.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -175,6 +183,7 @@
 		1B5FC33C1AA57EEA00279C3A /* Reasource */ = {
 			isa = PBXGroup;
 			children = (
+				0438C3691D531ACB00669F9B /* photoDeleteIcon@2x.png */,
 				0438C35E1D51D8E300669F9B /* photo_number_icon@2x.png */,
 				0438C35A1D51D20000669F9B /* original_N@2x.png */,
 				0438C35B1D51D20000669F9B /* original_S@2x.png */,
@@ -236,6 +245,7 @@
 			children = (
 				1B7B76F61A9EEB44003874E4 /* Info.plist */,
 				1B7B76F71A9EEB44003874E4 /* main.m */,
+				0438C3631D5314A700669F9B /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -342,6 +352,7 @@
 				1B7B77061A9EEB44003874E4 /* LaunchScreen.xib in Resources */,
 				0438C34F1D51B8F600669F9B /* navi_back@2x.png in Resources */,
 				0438C3551D51C48700669F9B /* photo_N@2x.png in Resources */,
+				0438C36A1D531ACB00669F9B /* photoDeleteIcon@2x.png in Resources */,
 				0438C35D1D51D20000669F9B /* original_S@2x.png in Resources */,
 				1B7B77031A9EEB44003874E4 /* Images.xcassets in Resources */,
 				0438C3561D51C48700669F9B /* photo_S@2x.png in Resources */,
@@ -363,13 +374,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0438C3401D5192BC00669F9B /* MyAssetPickerToolbar.m in Sources */,
 				1B7B76FE1A9EEB44003874E4 /* ViewController.m in Sources */,
 				1B7B76FB1A9EEB44003874E4 /* AppDelegate.m in Sources */,
 				0438C3491D5196F900669F9B /* MyAssetImageDetailCollectionCell.m in Sources */,
 				0438C3591D51CE4200669F9B /* MyAssetImageDetailToolBar.m in Sources */,
 				0438C33A1D5192BC00669F9B /* MyAssetGroupController.m in Sources */,
 				0438C3231D50822B00669F9B /* WJQAlbumModel.m in Sources */,
+				0438C3621D51F69B00669F9B /* MyAssetImageToolBar.m in Sources */,
 				0438C33F1D5192BC00669F9B /* MyAssetPickerController.m in Sources */,
 				0438C34D1D51994200669F9B /* UIViewExt.m in Sources */,
 				0438C3461D5192FB00669F9B /* MyAssetImageCollectionViewCell.m in Sources */,
@@ -377,6 +388,7 @@
 				0438C33E1D5192BC00669F9B /* MyAssetImageDetailController.m in Sources */,
 				0438C3261D50925B00669F9B /* WJQAssetModel.m in Sources */,
 				0438C3521D51BDE500669F9B /* UIView+Layout.m in Sources */,
+				0438C3661D53180A00669F9B /* WJQUploadImageView.m in Sources */,
 				04C421F01D4F4BBE008AD492 /* WJQAlbumManager.m in Sources */,
 				0438C3451D5192FB00669F9B /* MyAssetGroupTableViewCell.m in Sources */,
 				1B7B76F81A9EEB44003874E4 /* main.m in Sources */,
@@ -444,6 +456,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = DemoOfALAssetsLibrary/PrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -484,6 +497,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREFIX_HEADER = DemoOfALAssetsLibrary/PrefixHeader.pch;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

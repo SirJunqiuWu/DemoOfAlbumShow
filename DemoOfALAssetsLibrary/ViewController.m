@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "MyAssetPickerController.h"
+#import "WJQUploadImageView.h"
 
 @interface ViewController ()<MyAssetPickerControllerDelegate>
 
@@ -28,26 +29,23 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"相册";
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake((self.view.frame.size.width - 200)/2, 100, 200, 30);
-    [button setTitle:@"进入相册" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
-    [button addTarget:self action:@selector(buttonIsTouch:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"进入相册" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemPressed)];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (void)buttonIsTouch:(UIButton *)paramSender{
-    //进入相册
+#pragma mark - 按钮点击事件
+
+- (void)rightItemPressed{
+    /**
+     *  进入相册
+     */
     MyAssetPickerController *viewController = [[MyAssetPickerController alloc]init];
     viewController.pickControllerDelegate = self;
-    [self presentViewController:viewController animated:YES completion:^{
-        
-    }];
+    [self presentViewController:viewController animated:YES completion:NULL];
 }
 
 #pragma mark - MyAssetPickerControllerDelegate 最终选择完图片在这里处理
@@ -61,7 +59,7 @@
 }
 
 
--(void)didCancleSelectImage:(MyAssetPickerController *)pickerController {
+- (void)didCancleSelectImage:(MyAssetPickerController *)pickerController {
     
 }
 

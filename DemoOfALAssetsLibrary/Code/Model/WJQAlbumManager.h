@@ -45,6 +45,15 @@
 
 
 /**
+ *  获取相机胶卷相册的对象信息
+ *
+ *  @param isAllowPickingVideo 是否允许选择视频 YES允许;反之不允许
+ *  @param completion          结果回调
+ */
+- (void)getCameraRollAlbumWithIsAllowPickingVideo:(BOOL)isAllowPickingVideo Completion:(void (^)(WJQAlbumModel *model))completion;
+
+
+/**
  *  获取某个相册展示图片
  *
  *  @param model               当前的相册model

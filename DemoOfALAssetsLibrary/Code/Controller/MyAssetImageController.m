@@ -9,19 +9,20 @@
 #import "MyAssetImageController.h"
 #import "MyAssetImageCollectionViewCell.h"
 #import "MyAssetImageDetailController.h"
-#import "MyAssetPickerToolbar.h"
+#import "MyAssetImageToolBar.h"
 
-@interface MyAssetImageController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,MyAssetImageCollectionViewCellDelegate,MyAssetPickerToolbarDelegate>
+@interface MyAssetImageController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,MyAssetImageCollectionViewCellDelegate,MyAssetImageToolBarDelegate>
 {
-    UICollectionView *myCollectionView;
+    UICollectionView    *myCollectionView;
+    MyAssetImageToolBar *toolBar;
     /**
      *  存放图片的数组
      */
-    NSMutableArray *allPhotosArray;
+    NSMutableArray   *allPhotosArray;
     /**
      *  已选的图片
      */
-    NSMutableArray *selectArray;
+    NSMutableArray    *selectArray;
 }
 @end
 
@@ -55,14 +56,7 @@
     self.navigationItem.rightBarButtonItem = rightItem;
 
     [self getImages];
-    
-    myCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64 - 49) collectionViewLayout:[UICollectionViewFlowLayout new]];
-    myCollectionView.backgroundColor = [UIColor whiteColor];
-    myCollectionView.showsVerticalScrollIndicator = YES;
-    myCollectionView.delegate = self;
-    myCollectionView.dataSource = self;
-    [myCollectionView registerClass:[MyAssetImageCollectionViewCell class] forCellWithReuseIdentifier:@"MyAssetImageCollectionViewCell"];
-    [self.view addSubview:myCollectionView];
+    [self setupUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,6 +66,23 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+}
+
+#pragma mark - 创建UI
+
+- (void)setupUI {
+    myCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64 - 49) collectionViewLayout:[UICollectionViewFlowLayout new]];
+    myCollectionView.backgroundColor = [UIColor whiteColor];
+    myCollectionView.showsVerticalScrollIndicator = YES;
+    myCollectionView.delegate = self;
+    myCollectionView.dataSource = self;
+    [myCollectionView registerClass:[MyAssetImageCollectionViewCell class] forCellWithReuseIdentifier:@"MyAssetImageCollectionViewCell"];
+    [self.view addSubview:myCollectionView];
+    
+    toolBar = [[MyAssetImageToolBar alloc]initWithFrame:AppFrame(0,self.view.height-49,AppWidth,49)];
+    toolBar.backgroundColor = UIColorFromRGB(0xf9f9f9);
+    toolBar.delegate = self;
+    [self.view addSubview:toolBar];
 }
 
 #pragma mark - UICollectionViewDataSource && Delegate
@@ -138,6 +149,16 @@
     vc.allPhotoArray                 = allPhotosArray;
     vc.haveSelectPhotoArray          = selectArray;
     vc.currentPhotoIndex             = indexPath.row;
+    [vc setSelectedPhotoBlock:^(NSInteger idx, WJQAssetModel *model) {
+        NSIndexPath *tempIndexPath = [NSIndexPath indexPathForRow:idx inSection:0];
+        [allPhotosArray replaceObjectAtIndex:idx withObject:model];
+        [myCollectionView reloadItemsAtIndexPaths:@[tempIndexPath]];
+        [toolBar reloadToolBarWithArray:selectArray];
+    }];
+    
+    [vc setOKBlock:^(NSArray *haveSelectedArray) {
+        [self okBtnPressed];
+    }];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -177,80 +198,31 @@
         }
     }
     
-    
     if (needReload)
     {
         [allPhotosArray replaceObjectAtIndex:indexPath.row withObject:model];
         [myCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+        [toolBar reloadToolBarWithArray:selectArray];
     }
-
-    
-//    //判断是添加还是取消 -- 获取当前的ALAsset对象，
-//    ALAsset *tpAsset = [assets objectAtIndex:indexPath.row];
-//    BOOL containsObject = [selectArray containsObject:tpAsset];
-//    if (containsObject == YES)
-//    {
-//        //已经存在，则需要进行一个更改
-//        [selectArray removeObject:tpAsset];
-//        needChangeState = YES;
-//    }
-//    else
-//    {
-//        if (selectArray.count < self.maxSelectItem)
-//        {
-//            [selectArray addObject:tpAsset];
-//            needChangeState = YES;
-//        }
-//        else
-//        {
-//            needChangeState = NO;
-//            UIAlertView *myAlertView = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"你最多只能选择%d张照片",self.maxSelectItem] delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil];
-//            [myAlertView show];
-//        }
-//    }
-//    
-//    if (needChangeState == YES)
-//    {
-//        //需要对单个的collectionViewCell进行更新
-//        NSArray *indePathArray = [NSArray arrayWithObjects:indexPath, nil];
-//        [myCollectionView reloadItemsAtIndexPaths:indePathArray];
-//        
-//        //同时需要更改导航的标题
-//        
-//        //更改toolbar的状态
-//        if (selectArray.count >0)
-//        {
-//            self.title = [NSString stringWithFormat:@"已选择%d张照片",(int)selectArray.count];
-//            toolbar.buttonCanTouch = YES;
-//        }
-//        else
-//        {
-//            self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-//            toolbar.buttonCanTouch = NO;
-//        } 
-//    }
 }
 
-#pragma mark - MyAssetPickerToolbarDelegate
+#pragma mark - MyAssetImageToolBarDelegate
 
-- (void)myAssetPickerToolbar:(MyAssetPickerToolbar *)toolbar leftButtonIsTouch:(UIButton *)paramSender {
-    //视图控制器内部实现
-}
-
-- (void)myAssetPickerToolbar:(MyAssetPickerToolbar *)toolbar rightButtonIsTouch:(UIButton *)paramSender {
+- (void)okBtnPressed {
+    NSLog(@"确定");
+    NSMutableArray *selectedImagesArr = [NSMutableArray array];
+    [selectArray enumerateObjectsUsingBlock:^(WJQAssetModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[WJQAlbumManager sharedManager]getPhotoWithAsset:model.asset photoWidth:AppWidth completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+            [selectedImagesArr addObject:photo];
+        }];
+    }];
     if ([self.delegate respondsToSelector:@selector(myAssetImageController:didFinishSelectImage:)])
     {
-        //需要对结果进行一个处理
-        NSMutableArray *tpImageArray = [NSMutableArray array];
-        for (int i = 0; i<selectArray.count; i++)
-        {
-            ALAsset *tpAsset = [selectArray objectAtIndex:i];
-            UIImage *tpImage = [UIImage imageWithCGImage:tpAsset.defaultRepresentation.fullScreenImage];
-            [tpImageArray addObject:tpImage];
-        }
-        [self.delegate myAssetImageController:self didFinishSelectImage:tpImageArray];
+        [self.delegate myAssetImageController:self didFinishSelectImage:selectedImagesArr];
     }
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
 
 #pragma mark ------------------ 获取该相册下的所有照片 --------------
 
@@ -266,6 +238,7 @@
     if ([self.delegate respondsToSelector:@selector(didCancleSelect:)])
     {
         [self.delegate didCancleSelect:self];
+        [self dismissViewControllerAnimated:YES completion:NULL];
     }
 }
 
@@ -276,7 +249,7 @@
     {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self presentViewController:alertController animated:YES completion:NULL];
     }
     else
     {

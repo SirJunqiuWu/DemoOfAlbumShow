@@ -167,6 +167,52 @@ static WJQAlbumManager *myManager = nil;
     }
 }
 
+- (void)getCameraRollAlbumWithIsAllowPickingVideo:(BOOL)isAllowPickingVideo Completion:(void (^)(WJQAlbumModel *model))completion {
+    __block WJQAlbumModel *model;
+    if (iOS8Later)
+    {
+        PHFetchOptions *option = [[PHFetchOptions alloc] init];
+        if (!isAllowPickingVideo)
+        {
+          option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",PHAssetMediaTypeImage];
+        }
+        option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+        
+        /**
+         *  相册操作对象
+         */
+        PHFetchResult *smartAlbumsFetchResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
+        
+        for (PHAssetCollection *collection in smartAlbumsFetchResult)
+        {
+            if ([collection.localizedTitle isEqualToString:@"Camera Roll"] || [collection.localizedTitle isEqualToString:@"相机胶卷"])
+            {
+                PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
+                model = [self modelWithResult:fetchResult name:collection.localizedTitle];
+                if (completion)
+                {
+                  completion(model);
+                }
+                break;
+            }
+        }
+    }
+    else
+    {
+        [self.assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            if ([group numberOfAssets] < 1)
+                return;
+            NSString *name = [group valueForProperty:ALAssetsGroupPropertyName];
+            if ([name isEqualToString:@"Camera Roll"] || [name isEqualToString:@"相机胶卷"])
+            {
+                model = [self modelWithResult:group name:name];
+                if (completion) completion(model);
+                *stop = YES;
+            }
+        } failureBlock:nil];
+    }
+}
+
 - (void)getPostImageWithAlbumModel:(WJQAlbumModel *)model PostImageWidth:(CGFloat)postImageWidth completion:(void (^)(UIImage *postImage))completion {
     if (iOS8Later)
     {

@@ -8,10 +8,16 @@
 
 #import "MyAssetPickerController.h"
 #import "MyAssetGroupController.h"
+#import "MyAssetImageController.h"
 
-@interface MyAssetPickerController ()<MyAssetGroupControllerDelegate>
+@interface MyAssetPickerController ()<MyAssetGroupControllerDelegate,MyAssetImageControllerDelegate>
 {
     MyAssetGroupController *viewController;
+    
+    /**
+     *  是否直接进入相机胶卷相册列表 YES是;反之首先是相册列表
+     */
+    BOOL isGotoAlbumRoll;
 }
 @end
 
@@ -24,10 +30,17 @@
  */
 - (id)init {
     //设置默认值
-    viewController = [[MyAssetGroupController alloc]init];
+    viewController               = [[MyAssetGroupController alloc]init];
     viewController.maxSelectItem = 9;
-    viewController.delegate = self;
-    return [self initWithRootViewController:viewController];
+    viewController.delegate      = self;
+    isGotoAlbumRoll              = YES;
+    self = [super initWithRootViewController:viewController];
+    if (self)
+    {
+        [self checkauthorizationStatus];
+    }
+    
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -47,6 +60,45 @@
 {
     viewController.maxSelectItem = maxSelectItem;
 }
+
+#pragma mark - 检测是否具有权限
+
+- (void)checkauthorizationStatus {
+    if (![[WJQAlbumManager sharedManager]authorizationStatusAuthorized])
+    {
+        NSString *appName     = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleDisplayName"];
+        if (appName.length == 0)
+        {
+            appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleName"];
+        }
+        
+        NSString *alertText    = [NSString stringWithFormat:@"请在%@的\"设置-隐私-照片\"选项中，\r允许%@访问你的手机相册。",[UIDevice currentDevice].model,appName];
+        
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:alertText delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+        
+        /**
+         *  注:可以在此添加定时器，隔一段时间检测相册访问权限
+         */
+    }
+    else
+    {
+        if (isGotoAlbumRoll)
+        {
+            [[WJQAlbumManager sharedManager]getCameraRollAlbumWithIsAllowPickingVideo:NO Completion:^(WJQAlbumModel *model) {
+                [self gotoAssetImageControllerWithModel:model];
+            }];
+        }
+    }
+}
+
+- (void)gotoAssetImageControllerWithModel:(WJQAlbumModel *)model {
+    MyAssetImageController *imageController = [[MyAssetImageController alloc]init];
+    imageController.albumModel              = model;
+    imageController.delegate                = self;
+    [super pushViewController:imageController animated:YES];
+}
+
 
 #pragma mark - MyAssetGroupControllerDelegate
 
@@ -74,6 +126,20 @@
             [self.pickControllerDelegate didCancleSelectImage:self];
         }
     }
+}
+
+#pragma mark - MyAssetPickerControllerDelegate
+
+- (void)myAssetImageController:(MyAssetImageController *)controller didFinishSelectImage:(NSArray *)imageArray {
+    NSLog(@"%@",imageArray);
+}
+
+- (void)myAssetImageController:(MyAssetImageController *)controller selectImageWithError:(NSError *)error {
+    
+}
+
+- (void)didCancleSelect:(MyAssetImageController *)controller {
+    
 }
 
 

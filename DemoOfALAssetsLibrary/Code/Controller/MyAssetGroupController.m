@@ -17,11 +17,6 @@
      *  相册列表tableview
      */
     UITableView *imageGroupTableView;
-    
-    /**
-     *  是否为第一次进入这个VC -- 第一次的时候需要直接跳转到图片列表页，否则为页面加载
-     */
-    BOOL isFirst;
 }
 @end
 
@@ -31,7 +26,6 @@
 - (id)init {
     self = [super init];
     if (self) {
-        isFirst = YES;
         allAlbumArray = [NSMutableArray array];
     }
     return self;
@@ -68,28 +62,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-#pragma mark - 检测是否具有权限
-
-- (void)checkauthorizationStatus {
-    if (![[WJQAlbumManager sharedManager]authorizationStatusAuthorized])
-    {
-        NSString *appName     = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleDisplayName"];
-        if (appName.length == 0)
-        {
-           appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleName"];
-        }
-        
-        NSString *alertText    = [NSString stringWithFormat:@"请在%@的\"设置-隐私-照片\"选项中，\r允许%@访问你的手机相册。",[UIDevice currentDevice].model,appName];
-        
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:alertText delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alertView show];
-        
-        /**
-         *  注:可以在此添加定时器，隔一段时间检测相册访问权限
-         */
-    }
 }
 
 #pragma mark - 获取相册列表
@@ -132,31 +104,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    MyAssetImageController *imageController = [[MyAssetImageController alloc]init];
-    imageController.albumModel              = allAlbumArray[indexPath.row];
-    imageController.delegate                = self;
-    [self.navigationController pushViewController:imageController animated:YES];
+    [self gotoAssetImageControllerWithModel:allAlbumArray[indexPath.row]];
 }
 
-#pragma mark - 默认进来是进 相机胶卷相册
-
-- (void)getAssetGroupFinish
-{
-    self.title = @"照片";
-    
-    if (isFirst == YES)
-    {
-        isFirst = NO;
-//        MyAssetImageController *viewController = [[MyAssetImageController alloc]init];
-//        viewController.assetsGroup = [self.groups objectAtIndex:0];
-//        viewController.maxSelectItem = self.maxSelectItem;
-//        viewController.delegate = self;
-//        [self.navigationController pushViewController:viewController animated:NO];
-    }
-    else
-    {
-        [imageGroupTableView reloadData];
-    }
+- (void)gotoAssetImageControllerWithModel:(WJQAlbumModel *)model {
+    MyAssetImageController *imageController = [[MyAssetImageController alloc]init];
+    imageController.albumModel              = model;
+    imageController.delegate                = self;
+    [self.navigationController pushViewController:imageController animated:YES];
 }
 
 #pragma mark - 按钮点击事件
@@ -179,18 +134,17 @@
  *  @param imageArray 选取的图片数组 - 数组元素为image
  */
 - (void)myAssetImageController:(MyAssetImageController *)controller didFinishSelectImage:(NSArray *)imageArray {
-    [self dismissViewControllerAnimated:YES completion:^{
-        if ([self.delegate respondsToSelector:@selector(myAssetGroupController:didFinishSelect:)])
-        {
-            [self.delegate myAssetGroupController:self didFinishSelect:imageArray];
-        }
-    }];
+    if ([self.delegate respondsToSelector:@selector(myAssetGroupController:didFinishSelect:)])
+    {
+        [self.delegate myAssetGroupController:self didFinishSelect:imageArray];
+    }
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 /**
  *  取消图片选择
  *
- *  @param controller <#controller description#>
+ *  @param controller MyAssetImageController
  */
 - (void)didCancleSelect:(MyAssetImageController *)controller {
     [self cancle];

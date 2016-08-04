@@ -1,0 +1,18 @@
+//
+//  PrefixHeader.pch
+//  DemoOfALAssetsLibrary
+//
+//  Created by 吴 吴 on 16/8/4.
+//  Copyright © 2016年 JW. All rights reserved.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_7_0
+#warning "This project uses features only available in iOS SDK 7.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import "WJQAlbumManager.h"
+#endif
