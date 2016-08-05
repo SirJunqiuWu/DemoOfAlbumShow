@@ -11,11 +11,6 @@
 #import "MyAssetPickerController.h"
 #import "WJQUploadImageBaseView.h"
 
-/**
- * 允许最大图片选择数
- */
-#define MaxCount  9
-
 @interface ViewController ()<MyAssetPickerControllerDelegate,WJQUploadImageViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     WJQUploadImageBaseView *uploadImageBaseView;

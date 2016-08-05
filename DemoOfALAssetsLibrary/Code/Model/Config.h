@@ -12,6 +12,11 @@
 #import "UIViewExt.h"
 #import "UIView+Layout.h"
 
+/**
+ * 允许最大图片选择数
+ */
+#define MaxCount  9
+
 #define iOS7Later ([UIDevice currentDevice].systemVersion.floatValue >= 7.0f)
 #define iOS8Later ([UIDevice currentDevice].systemVersion.floatValue >= 8.0f)
 #define iOS9Later ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)

@@ -111,6 +111,7 @@
     MyAssetImageController *imageController = [[MyAssetImageController alloc]init];
     imageController.albumModel              = model;
     imageController.delegate                = self;
+    imageController.maxSelectItem           = MaxCount;
     [self.navigationController pushViewController:imageController animated:YES];
 }
 

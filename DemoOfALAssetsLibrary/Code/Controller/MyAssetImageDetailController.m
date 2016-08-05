@@ -250,9 +250,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     currentPhotoIndex = scrollView.contentOffset.x / self.view.tz_width;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self reloadUI];
 }
 
