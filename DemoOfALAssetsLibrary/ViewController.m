@@ -89,6 +89,7 @@
     /**
      * 注:在此处已经获得网络的图片链接了,只需普通接口post即可(如若多张图片中有上传失败的,在此处需判断图片链接长度是否只为1,过滤上传服务器失败的)
      */
+    [self showAlertWithTitle:[NSString stringWithFormat:@"当前上传%ld张图片",uploadImagesArr.count]];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
