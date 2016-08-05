@@ -54,7 +54,6 @@
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancle)];
     self.navigationItem.rightBarButtonItem = rightItem;
-
     [self getImages];
     [self setupUI];
 }
@@ -83,6 +82,11 @@
     toolBar.backgroundColor = UIColorFromRGB(0xf9f9f9);
     toolBar.delegate = self;
     [self.view addSubview:toolBar];
+    
+    if (allPhotosArray.count >0)
+    {
+       [myCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(allPhotosArray.count - 1) inSection:0] atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource && Delegate

@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class WJQUploadImageView;
+@protocol WJQUploadImageViewDelegate <NSObject>
+
+@optional
+
+/**
+ *  删除某张图片视图
+ *
+ *  @param obj 自身
+ */
+- (void)deleteBtnPressedWithObj:(WJQUploadImageView *)obj;
+
+@end
+
 /**
  *  上传图片用的视图
  */
@@ -29,5 +43,9 @@
  *  图片上的删除按钮
  */
 @property (nonatomic, strong) UIButton *deleteBtn;
+/**
+ *  代理
+ */
+@property (nonatomic,assign)id<WJQUploadImageViewDelegate>delegate;
 
 @end

@@ -132,6 +132,10 @@
 
 - (void)myAssetImageController:(MyAssetImageController *)controller didFinishSelectImage:(NSArray *)imageArray {
     NSLog(@"%@",imageArray);
+    if ([self.pickControllerDelegate respondsToSelector:@selector(myAssetPickerController:didFinishSelect:)])
+    {
+        [self.pickControllerDelegate myAssetPickerController:self didFinishSelect:imageArray];
+    }
 }
 
 - (void)myAssetImageController:(MyAssetImageController *)controller selectImageWithError:(NSError *)error {
@@ -139,7 +143,10 @@
 }
 
 - (void)didCancleSelect:(MyAssetImageController *)controller {
-    
+    if ([self.pickControllerDelegate respondsToSelector:@selector(didCancleSelectImage:)])
+    {
+        [self.pickControllerDelegate didCancleSelectImage:self];
+    }
 }
 
 

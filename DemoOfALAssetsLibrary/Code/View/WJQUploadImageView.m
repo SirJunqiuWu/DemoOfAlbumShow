@@ -24,6 +24,9 @@
 #pragma mark - 创建UI
 
 - (void)setupUI {
+    /**
+     * 展示的图片 可在图片上增添点击事件，以便展示原图
+     */
     imageView = [[UIImageView alloc]initWithFrame:AppFrame(10,10,self.width-10,self.height-10)];
     imageView.backgroundColor = [UIColor clearColor];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -37,10 +40,34 @@
     [self addSubview:deleteBtn];
 }
 
+#pragma mark - Setter
+
+- (void)setImage:(UIImage *)image {
+    _image = image;
+}
+
+- (void)setImageUrl:(NSString *)imageUrl {
+    _imageUrl = imageUrl;
+    if (_image)
+    {
+        self.imageView.image = _image;
+    }
+    else
+    {
+        /**
+         *  赋网络图片
+         */
+//        [self.imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
+    }
+}
+
 #pragma mark - 按钮点击事件
 
 - (void)deleteBtnPressed {
-    
+    if ([self.delegate respondsToSelector:@selector(deleteBtnPressedWithObj:)])
+    {
+        [self.delegate deleteBtnPressedWithObj:self];
+    }
 }
 
 @end

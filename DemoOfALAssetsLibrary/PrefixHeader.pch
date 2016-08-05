@@ -14,5 +14,6 @@
 
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#import "NSArray+Utils.h"
 #import "WJQAlbumManager.h"
 #endif
