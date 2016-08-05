@@ -23,15 +23,23 @@
 
 @implementation MyAssetPickerController
 
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
 /**
  *  重写init方法 -- 目的为设置MyAssetPickerController的RootViewController
  *
  *  @return 实例化之后的MyAssetPickerController
  */
-- (id)init {
-    //设置默认值
+- (id)initWithMaxSelecteCount:(NSInteger)maxSelectCount {
     viewController               = [[MyAssetGroupController alloc]init];
-    viewController.maxSelectItem = 9;
+    viewController.maxSelectItem = (int)maxSelectCount;
     viewController.delegate      = self;
     isGotoAlbumRoll              = YES;
     self = [super initWithRootViewController:viewController];
@@ -96,6 +104,7 @@
     MyAssetImageController *imageController = [[MyAssetImageController alloc]init];
     imageController.albumModel              = model;
     imageController.delegate                = self;
+    imageController.maxSelectItem           = viewController.maxSelectItem;
     [super pushViewController:imageController animated:YES];
 }
 

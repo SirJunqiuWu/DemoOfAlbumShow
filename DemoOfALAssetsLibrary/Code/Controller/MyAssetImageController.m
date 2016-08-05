@@ -35,10 +35,6 @@
     {
         selectArray    = [NSMutableArray array];
         allPhotosArray = [NSMutableArray array];
-        /**
-         *  默认最大支持数量为9
-         */
-        self.maxSelectItem = 9;
     }
     return self;
 }

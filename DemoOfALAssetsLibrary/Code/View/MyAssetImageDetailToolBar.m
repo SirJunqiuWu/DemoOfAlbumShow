@@ -50,7 +50,7 @@
     [self addSubview:originBtn];
     
     okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    okBtn.frame = CGRectMake(self.width - 44 - 12, 0, 44, 44);
+    okBtn.frame = CGRectMake(self.width - 44 - 12, 0, 66, 44);
     okBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [okBtn addTarget:self action:@selector(okBtnPressed) forControlEvents:UIControlEventTouchUpInside];
     [okBtn setTitle:@"确定" forState:UIControlStateNormal];

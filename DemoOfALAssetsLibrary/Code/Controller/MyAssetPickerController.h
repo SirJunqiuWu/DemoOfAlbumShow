@@ -41,11 +41,16 @@
 
 @interface MyAssetPickerController : UINavigationController
 
+/**
+ *  图片选择的导航控制器
+ */
 @property (nonatomic , weak) id<MyAssetPickerControllerDelegate>pickControllerDelegate;
 
 /**
  *  最大选择数量
  */
 @property (nonatomic , assign) int maxSelectItem;
+
+- (id)initWithMaxSelecteCount:(NSInteger)maxSelectCount;
 
 @end

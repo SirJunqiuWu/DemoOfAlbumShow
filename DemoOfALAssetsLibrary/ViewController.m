@@ -11,6 +11,11 @@
 #import "MyAssetPickerController.h"
 #import "WJQUploadImageBaseView.h"
 
+/**
+ * 允许最大图片选择数
+ */
+#define MaxCount  9
+
 @interface ViewController ()<MyAssetPickerControllerDelegate,WJQUploadImageViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     WJQUploadImageBaseView *uploadImageBaseView;
@@ -34,9 +39,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"相册";
-    
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"进入相册" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemPressed)];
-    self.navigationItem.rightBarButtonItem = rightItem;
     
     [self setupUI];
 }
@@ -103,14 +105,15 @@
     }
     else if (buttonIndex == 1)
     {
-        NSInteger max = 9 - uploadImageBaseView.imageViewsArr.count;
-        if (max <= 0)
+        NSInteger remainCount = MaxCount - uploadImageBaseView.imageViewsArr.count;
+        if (remainCount <= 0)
         {
-            [self showAlertWithTitle:@"最多可选4张图片"];
+            [self showAlertWithTitle:[NSString stringWithFormat:@"最多可选%d张图片",MaxCount]];
             return ;
         }
-        MyAssetPickerController *viewController = [[MyAssetPickerController alloc]init];
+        MyAssetPickerController *viewController = [[MyAssetPickerController alloc]initWithMaxSelecteCount:remainCount];
         viewController.pickControllerDelegate = self;
+        viewController.maxSelectItem = (int)remainCount;
         [self presentViewController:viewController animated:YES completion:NULL];
     }
     else
